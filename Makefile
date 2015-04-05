@@ -9,6 +9,10 @@ docset_name := $(docset_basename).docset
 docset := $(build)/$(docset_name)
 docset_html := $(docset)/Contents/Resources/Documents
 
+vendor := vendor
+site := livescript.net
+downloaded_doc := $(vendor)/$(site)
+
 
 dev: clean build install
 prod: clean build release
@@ -18,7 +22,15 @@ clean:
 
 
 .PHONY: build
-build: static-content index
+build: static-content index bits-from-original-doc
+
+
+$(downloaded_doc):
+	mkdir -p $(vendor)
+	wget http://$(site)/ --directory-prefix=$(vendor) --page-requisites
+bits-from-original-doc: $(downloaded_doc)
+	mkdir -p $(docset_html)
+	cp -R $(downloaded_doc)/* $(docset_html)
 
 
 static-content:
