@@ -15,6 +15,7 @@ makeContentFullWidth = ($) ->
 actions = [
     html.remove '.side-row'
     makeContentFullWidth
+    html.remove '.major-actions'
 ]
 
 [source, sink] = process.argv[2, 3]
