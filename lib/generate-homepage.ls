@@ -4,8 +4,17 @@ require! {
     './html'
 }
 
+makeContentFullWidth = ($) ->
+    $('.content-row .span2').remove()
+    $('.content')
+        .removeClass 'span6'
+        .css 'margin-left' '1em'
+        .css 'margin-right' '1em'
+
+
 actions = [
-    html.remove '.compiler'
+    html.remove '.side-row'
+    makeContentFullWidth
 ]
 
 [source, sink] = process.argv[2, 3]
