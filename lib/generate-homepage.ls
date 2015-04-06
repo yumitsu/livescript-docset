@@ -17,12 +17,21 @@ removeReferenceToReplAndFrenchDocs = ($) ->
 removeTwitterWidgetScript = ($) ->
     $('.site script').first().remove()
 
+markSectionsForToc = ($) ->
+    sections = $('.content .section').each (_, el) ->
+        section = $(el)
+        name = section.find('h2').text()
+        section.find('a').first()
+            .addClass 'dashAnchor'
+            .attr 'name' "//apple_ref/Section/#{encodeURIComponent name}"
+
 actions = [
     html.remove '.side-row'
     makeContentFullWidth
     html.remove '.major-actions'
     removeReferenceToReplAndFrenchDocs
     removeTwitterWidgetScript
+    markSectionsForToc
 ]
 
 [source, sink] = process.argv[2, 3]
