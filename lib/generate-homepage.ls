@@ -14,11 +14,15 @@ makeContentFullWidth = ($) ->
 removeReferenceToReplAndFrenchDocs = ($) ->
     $('#overview h3').prev('p').remove()
 
+removeTwitterWidgetScript = ($) ->
+    $('.site script').first().remove()
+
 actions = [
     html.remove '.side-row'
     makeContentFullWidth
     html.remove '.major-actions'
     removeReferenceToReplAndFrenchDocs
+    removeTwitterWidgetScript
 ]
 
 [source, sink] = process.argv[2, 3]
