@@ -36,7 +36,7 @@ bits-from-original-doc: $(downloaded_doc)
 homepage_subpath := index.html
 homepage := $(docset_html)/$(homepage_subpath)
 downloaded_homepage := $(downloaded_doc)/$(homepage_subpath)
-homepage:
+homepage: $(downloaded_doc)
 	rm -rf $(homepage)
 	$(lsc) $(lib)/generate-homepage $(downloaded_homepage) $(homepage)
 
