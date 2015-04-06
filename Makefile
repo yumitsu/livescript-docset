@@ -22,7 +22,7 @@ clean:
 
 
 .PHONY: build
-build: static-content index bits-from-original-doc
+build: static-content index bits-from-original-doc homepage
 
 
 $(downloaded_doc):
@@ -31,6 +31,14 @@ $(downloaded_doc):
 bits-from-original-doc: $(downloaded_doc)
 	mkdir -p $(docset_html)
 	cp -R $(downloaded_doc)/* $(docset_html)
+
+
+homepage_subpath := index.html
+homepage := $(docset_html)/$(homepage_subpath)
+downloaded_homepage := $(downloaded_doc)/$(homepage_subpath)
+homepage:
+	rm -rf $(homepage)
+	$(lsc) $(lib)/generate-homepage $(downloaded_homepage) $(homepage)
 
 
 static-content:
