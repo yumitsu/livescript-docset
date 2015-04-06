@@ -22,7 +22,7 @@ clean:
 
 
 .PHONY: build
-build: static-content index bits-from-original-doc homepage
+build: static-content index bits-from-original-doc homepage icon
 
 
 $(downloaded_doc):
@@ -44,6 +44,10 @@ homepage: $(downloaded_doc)
 static-content:
 	mkdir -p $(docset)
 	cp -R static/* $(docset)
+
+icon: $(downloaded_doc)
+	mkdir -p $(docset)
+	cp $(downloaded_doc)/images/icon.png $(docset)
 
 
 index:
