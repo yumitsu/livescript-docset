@@ -10,6 +10,7 @@ makeContentFullWidth = ($) ->
         .removeClass 'span6'
         .css 'margin-left' '1em'
         .css 'margin-right' '1em'
+        .css 'padding-top' '1em'
 
 removeReferenceToReplAndFrenchDocs = ($) ->
     $('#overview h3').prev('p').remove()
