@@ -11,11 +11,14 @@ makeContentFullWidth = ($) ->
         .css 'margin-left' '1em'
         .css 'margin-right' '1em'
 
+removeReferenceToReplAndFrenchDocs = ($) ->
+    $('#overview h3').prev('p').remove()
 
 actions = [
     html.remove '.side-row'
     makeContentFullWidth
     html.remove '.major-actions'
+    removeReferenceToReplAndFrenchDocs
 ]
 
 [source, sink] = process.argv[2, 3]
