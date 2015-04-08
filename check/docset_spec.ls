@@ -1,8 +1,8 @@
 require! {
-    path
-    hamjest:{promiseThat}:_
+    path, sqlite3
+    hamjest:{assertThat, promiseThat, equalTo}:_
     './hamjest-fs': {isFile}
-    ramda: {keys, map}
+    ramda: {head, keys, map}
 }
 
 docsetPath = process.env.DOCSET_PATH
@@ -21,3 +21,12 @@ describe 'LiveScript docset' ->
     keys resourcesToCheck |> map expectResourceToExist
 
 
+describe 'Index' ->
+    specify 'contains no entries', (done) ->
+        db = new sqlite3.Database pathInDocset('Contents/Resources/docSet.dsidx')
+        err, row <- db.get 'select count(*) from searchIndex;'
+        if err then throw err
+        firstColumn = keys row |> head
+        noOfEntries = row[firstColumn]
+        assertThat noOfEntries, equalTo 0
+        done()
