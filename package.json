@@ -7,4 +7,9 @@
     , "ramda": "^0.13.0"
     , "cheerio": "^0.19.0"
   }
+  , "devDependencies": {
+    "hamjest": "^2.11.0"
+    , "mocha": "^2.2.4"
+    , "mocha-unfunk-reporter": "^0.4.0"
+  }
 }

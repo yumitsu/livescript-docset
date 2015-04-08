@@ -14,8 +14,9 @@ site := livescript.net
 downloaded_doc := $(vendor)/$(site)
 
 
-dev: clean build install
-prod: clean build release
+verified-docset: clean build check
+dev: verified-docset install
+prod: verified-docset release
 
 clean:
 	rm -rf $(build)
@@ -53,6 +54,12 @@ icon: $(downloaded_doc)
 index:
 	mkdir -p $(docset)/Contents/Resources
 	DOCSET_PATH=$(docset) $(lsc) $(lib)/generate-index
+
+
+args =
+.PHONY: check
+check:
+	DOCSET_PATH=$(docset) $(bin)/mocha --compilers ls:LiveScript --recursive check --reporter mocha-unfunk-reporter $(args)
 
 
 install:
