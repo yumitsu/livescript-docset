@@ -53,7 +53,7 @@ icon: $(downloaded_doc)
 
 index:
 	mkdir -p $(docset)/Contents/Resources
-	DOCSET_PATH=$(docset) $(lsc) $(lib)/generate-index
+	DOCSET_PATH=$(docset) $(lsc) $(lib)/generate-index $(homepage)
 
 
 args =
