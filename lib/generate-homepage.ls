@@ -1,7 +1,7 @@
 require! {
+    './html', q, htmltidy
     ramda:r
     './util': u
-    './html'
 }
 
 makeContentFullWidth = ($) ->
@@ -37,7 +37,17 @@ actions = [
 
 [source, sink] = process.argv[2, 3]
 
+tidy = (html) ->
+    deferred = q.defer()
+    htmltidy.tidy html, (err, cleanHtml) ->
+        if err
+            deferred.reject err
+            return
+        deferred.resolve cleanHtml
+    deferred.promise
+
 u.readFile source
+.then tidy
 .then html.process actions
 .then u.writeToFile sink
-
+.done()

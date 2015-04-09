@@ -7,6 +7,7 @@
     , "ramda": "^0.13.0"
     , "cheerio": "^0.19.0"
     , "sqlite3": "^3.0.5"
+    , "htmltidy": "^0.0.6"
   }
   , "devDependencies": {
     "hamjest": "^2.11.0"
