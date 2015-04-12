@@ -37,8 +37,9 @@ bits-from-original-doc: $(downloaded_doc)
 homepage_subpath := index.html
 homepage := $(docset_html)/$(homepage_subpath)
 downloaded_homepage := $(downloaded_doc)/$(homepage_subpath)
-homepage: $(downloaded_doc)
+homepage: $(downloaded_doc) bits-from-original-doc
 	rm -rf $(homepage)
+	mkdir -p $(docset_html)
 	$(lsc) $(lib)/generate-homepage $(downloaded_homepage) $(homepage)
 
 
@@ -51,7 +52,7 @@ icon: $(downloaded_doc)
 	cp $(downloaded_doc)/images/icon.png $(docset)
 
 
-index:
+index: homepage
 	mkdir -p $(docset)/Contents/Resources
 	DOCSET_PATH=$(docset) $(lsc) $(lib)/generate-index $(homepage)
 
