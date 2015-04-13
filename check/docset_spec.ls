@@ -12,6 +12,7 @@ pathInDocset = (relativePath) ->
 describe 'LiveScript docset' ->
     resourcesToCheck =
         'low-res icon': 'icon.png'
+        'high-res icon': 'icon@2x.png'
         'Info.plist': 'Contents/Info.plist'
         'homepage': 'Contents/Resources/Documents/index.html'
         index: 'Contents/Resources/docSet.dsidx'

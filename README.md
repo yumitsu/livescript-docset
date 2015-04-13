@@ -1,7 +1,7 @@
 
 ## Generate docset
 
-Get Node.
+Get Node and ImageMagick.
 
     npm install
     make prod

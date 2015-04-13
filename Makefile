@@ -23,7 +23,7 @@ clean:
 
 
 .PHONY: build
-build: static-content index bits-from-original-doc homepage icon
+build: static-content index bits-from-original-doc homepage icons
 
 
 $(downloaded_doc):
@@ -47,9 +47,10 @@ static-content:
 	mkdir -p $(docset)
 	cp -R static/* $(docset)
 
-icon: $(downloaded_doc)
+icons: $(downloaded_doc)
 	mkdir -p $(docset)
 	cp $(downloaded_doc)/images/icon.png $(docset)
+	convert $(docset)/icon.png -filter Lanczos -resize 32x32 $(docset)/icon@2x.png
 
 
 index: homepage
