@@ -1,5 +1,5 @@
 require! {
-    sqlite3, q, path, cheerio
+    q, cheerio
     ramda:r
     './util':{readFile}
     './dashIndex': DashIndex

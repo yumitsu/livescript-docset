@@ -1,5 +1,6 @@
 require! {
     sqlite3, q, path
+    ramda: {head, keys}
 }
 
 DashIndex = (docsetPath) ->
@@ -20,17 +21,31 @@ DashIndex = (docsetPath) ->
         statement = db.prepare "INSERT INTO searchIndex(name, type, path) VALUES (?, 'Section', ?)"
         statement.run name, link
 
-    prepare = (statement) ->
-        db.prepare statement
+    getNoOfSections = ->
+        deferred = q.defer()
+        db.get 'select count(*) from searchIndex where type = "Section";', (err, row) ->
+            if err then throw err
+            firstColumnName = keys row |> head
+            deferred.resolve noOfEntries = row[firstColumnName]
+        deferred.promise
+
+    getNoOfAllEntries = ->
+        deferred = q.defer()
+        db.get 'select count(*) from searchIndex;', (err, row) ->
+            if err then throw err
+            firstColumnName = keys row |> head
+            deferred.resolve noOfEntries = row[firstColumnName]
+        deferred.promise
 
     that.recreate = recreate
     that.addSection = addSection
+    that.getNoOfSections = getNoOfSections
+    that.getNoOfAllEntries = getNoOfAllEntries
     that
 
 
-fromScratch = (docsetPath) ->
-    DashIndex(docsetPath).recreate()
 
 module.exports = {
-    fromScratch
+    fromScratch: (docsetPath) -> DashIndex(docsetPath).recreate()
+    open: (docsetPath) -> DashIndex(docsetPath)
 }

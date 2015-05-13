@@ -1,8 +1,9 @@
 require! {
-    path, sqlite3
+    path
     hamjest:{assertThat, promiseThat, equalTo}:_
     './hamjest-fs': {isFile}
-    ramda: {head, keys, map}
+    ramda: {keys, map}
+    '../lib/dashIndex': DashIndex
 }
 
 docsetPath = process.env.DOCSET_PATH
@@ -23,20 +24,18 @@ describe 'LiveScript docset' ->
 
 
 describe 'Index' ->
+    var index
+    beforeEach ->
+        index := DashIndex.open(docsetPath)
+
     specify 'contains all sections', (done) ->
-        db = new sqlite3.Database pathInDocset('Contents/Resources/docSet.dsidx')
-        err, row <- db.get 'select count(*) from searchIndex where type = "Section";'
-        if err then throw err
-        firstColumn = keys row |> head
-        noOfEntries = row[firstColumn]
-        assertThat noOfEntries, equalTo 25
-        done()
+        index.getNoOfSections().then ->
+            assertThat it, equalTo 25
+            done()
+        .done()
 
     specify 'contains nothing else', (done) ->
-        db = new sqlite3.Database pathInDocset('Contents/Resources/docSet.dsidx')
-        err, row <- db.get 'select count(*) from searchIndex where type not in ("Section");'
-        if err then throw err
-        firstColumn = keys row |> head
-        noOfEntries = row[firstColumn]
-        assertThat noOfEntries, equalTo 0
-        done()
+        index.getNoOfAllEntries().then ->
+            assertThat it, equalTo 25
+            done()
+        .done()
