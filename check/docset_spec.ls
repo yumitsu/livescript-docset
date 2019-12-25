@@ -30,12 +30,12 @@ describe 'Index' ->
 
     specify 'contains all sections', (done) ->
         index.getNoOfSections().then ->
-            assertThat it, equalTo 25
+            assertThat it, equalTo 26
             done()
         .done()
 
     specify 'contains nothing else', (done) ->
         index.getNoOfAllEntries().then ->
-            assertThat it, equalTo 25
+            assertThat it, equalTo 26
             done()
         .done()
